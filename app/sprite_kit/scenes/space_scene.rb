@@ -1,5 +1,6 @@
-class MyScene < SKScene
+class SpaceScene < SKScene
   include KeyHelper
+  include StarfieldBackground
 
   def didMoveToView(view)
     super
@@ -21,7 +22,7 @@ class MyScene < SKScene
   end
 
   def add_stars
-
+    addChild starfield
   end
 
   def add_planets
@@ -55,11 +56,11 @@ class MyScene < SKScene
     end
 
     key :left do |key_down|
-      spaceship.turn 10 if key_down
+      spaceship.turn 10.0 if key_down
     end
 
     key :right do |key_down|
-      spaceship.turn -10 if key_down
+      spaceship.turn -10.0 if key_down
     end
 
     key :space do |key_down|

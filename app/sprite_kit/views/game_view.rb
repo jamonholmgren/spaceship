@@ -7,6 +7,6 @@ class GameView < SKView
   end
 
   def scene
-    @scene ||= MyScene.alloc.initWithSize(frame.size)
+    @scene ||= SpaceScene.alloc.initWithSize(frame.size)
   end
 end
