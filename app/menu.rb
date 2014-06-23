@@ -1,25 +1,25 @@
-class AppDelegate
-  def buildMenu
-    @mainMenu = NSMenu.new
+module Menu
+  def build_menu
+    @main_menu = NSMenu.new
 
-    appName = NSBundle.mainBundle.infoDictionary['CFBundleName']
-    addMenu(appName) do
-      addItemWithTitle("About #{appName}", action: 'orderFrontStandardAboutPanel:', keyEquivalent: '')
+    app_name = NSBundle.mainBundle.infoDictionary['CFBundleName']
+    add_menu(app_name) do
+      addItemWithTitle("About #{app_name}", action: 'orderFrontStandardAboutPanel:', keyEquivalent: '')
       addItem(NSMenuItem.separatorItem)
       addItemWithTitle('Preferences', action: 'openPreferences:', keyEquivalent: ',')
       addItem(NSMenuItem.separatorItem)
       servicesItem = addItemWithTitle('Services', action: nil, keyEquivalent: '')
       NSApp.servicesMenu = servicesItem.submenu = NSMenu.new
       addItem(NSMenuItem.separatorItem)
-      addItemWithTitle("Hide #{appName}", action: 'hide:', keyEquivalent: 'h')
+      addItemWithTitle("Hide #{app_name}", action: 'hide:', keyEquivalent: 'h')
       item = addItemWithTitle('Hide Others', action: 'hideOtherApplications:', keyEquivalent: 'H')
       item.keyEquivalentModifierMask = NSCommandKeyMask|NSAlternateKeyMask
       addItemWithTitle('Show All', action: 'unhideAllApplications:', keyEquivalent: '')
       addItem(NSMenuItem.separatorItem)
-      addItemWithTitle("Quit #{appName}", action: 'terminate:', keyEquivalent: 'q')
+      addItemWithTitle("Quit #{app_name}", action: 'terminate:', keyEquivalent: 'q')
     end
 
-    addMenu('File') do
+    add_menu('File') do
       addItemWithTitle('New', action: 'newDocument:', keyEquivalent: 'n')
       addItemWithTitle('Open…', action: 'openDocument:', keyEquivalent: 'o')
       addItem(NSMenuItem.separatorItem)
@@ -31,7 +31,7 @@ class AppDelegate
       addItemWithTitle('Print…', action: 'printDocument:', keyEquivalent: 'p')
     end
 
-    addMenu('Edit') do
+    add_menu('Edit') do
       addItemWithTitle('Undo', action: 'undo:', keyEquivalent: 'z')
       addItemWithTitle('Redo', action: 'redo:', keyEquivalent: 'Z')
       addItem(NSMenuItem.separatorItem)
@@ -44,7 +44,7 @@ class AppDelegate
       addItemWithTitle('Select All', action: 'selectAll:', keyEquivalent: 'a')
     end
 
-    fontMenu = createMenu('Font') do
+    fontMenu = create_menu('Font') do
       addItemWithTitle('Show Fonts', action: 'orderFrontFontPanel:', keyEquivalent: 't')
       addItemWithTitle('Bold', action: 'addFontTrait:', keyEquivalent: 'b')
       addItemWithTitle('Italic', action: 'addFontTrait:', keyEquivalent: 'i')
@@ -54,7 +54,7 @@ class AppDelegate
       addItemWithTitle('Smaller', action: 'modifyFont:', keyEquivalent: '-')
     end
 
-    textMenu = createMenu('Text') do
+    textMenu = create_menu('Text') do
       addItemWithTitle('Align Left', action: 'alignLeft:', keyEquivalent: '{')
       addItemWithTitle('Center', action: 'alignCenter:', keyEquivalent: '|')
       addItemWithTitle('Justify', action: 'alignJustified:', keyEquivalent: '')
@@ -67,40 +67,40 @@ class AppDelegate
       item.keyEquivalentModifierMask = NSCommandKeyMask|NSControlKeyMask
     end
 
-    addMenu('Format') do
+    add_menu('Format') do
       addItem fontMenu
       addItem textMenu
     end
 
-    addMenu('View') do
+    add_menu('View') do
       item = addItemWithTitle('Show Toolbar', action: 'toggleToolbarShown:', keyEquivalent: 't')
       item.keyEquivalentModifierMask = NSCommandKeyMask|NSAlternateKeyMask
       addItemWithTitle('Customize Toolbar…', action: 'runToolbarCustomizationPalette:', keyEquivalent: '')
     end
 
-    NSApp.windowsMenu = addMenu('Window') do
+    NSApp.windowsMenu = add_menu('Window') do
       addItemWithTitle('Minimize', action: 'performMiniaturize:', keyEquivalent: 'm')
       addItemWithTitle('Zoom', action: 'performZoom:', keyEquivalent: '')
       addItem(NSMenuItem.separatorItem)
       addItemWithTitle('Bring All To Front', action: 'arrangeInFront:', keyEquivalent: '')
     end.menu
 
-    NSApp.helpMenu = addMenu('Help') do
-      addItemWithTitle("#{appName} Help", action: 'showHelp:', keyEquivalent: '?')
+    NSApp.helpMenu = add_menu('Help') do
+      addItemWithTitle("#{app_name} Help", action: 'showHelp:', keyEquivalent: '?')
     end.menu
 
-    NSApp.mainMenu = @mainMenu
+    NSApp.mainMenu = @main_menu
   end
 
   private
 
-  def addMenu(title, &b)
-    item = createMenu(title, &b)
-    @mainMenu.addItem item
+  def add_menu(title, &b)
+    item = create_menu(title, &b)
+    @main_menu.addItem item
     item
   end
 
-  def createMenu(title, &b)
+  def create_menu(title, &b)
     menu = NSMenu.alloc.initWithTitle(title)
     menu.instance_eval(&b) if b
     item = NSMenuItem.alloc.initWithTitle(title, action: nil, keyEquivalent: '')

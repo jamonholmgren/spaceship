@@ -1,4 +1,4 @@
-describe "Application 'jamkit'" do
+describe "Application 'spaceship'" do
   before do
     @app = NSApplication.sharedApplication
   end

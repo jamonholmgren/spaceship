@@ -10,5 +10,6 @@ end
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
-  app.name = 'jamkit'
+  app.name = 'spaceship'
+  app.frameworks = [ "SpriteKit" ]
 end
