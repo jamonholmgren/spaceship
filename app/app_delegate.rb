@@ -14,13 +14,13 @@ class AppDelegate
       defer: false)
     @main_window.title = NSBundle.mainBundle.infoDictionary['CFBundleName']
     @main_window.delegate = self
+    @main_window.setContentView game_view
     @main_window.orderFrontRegardless
 
-    spaceship # crash!
   end
 
-  def spaceship
-    @spaceship ||= Spaceship.alloc.init
+  def game_view
+    @game_view ||= GameView.alloc.initWithFrame(@main_window.contentView.bounds)
   end
 
 end
